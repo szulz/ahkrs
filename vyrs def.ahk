@@ -120,6 +120,7 @@ F1::
             Click
             Random, RandomDelay2, 2000, 3000
             Sleep, RandomDelay2
+            ; go to altar 2
         } Else{
             ;sino esta cerrada voy directo
             goToAltar()
