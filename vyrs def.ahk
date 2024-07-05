@@ -121,6 +121,8 @@ F1::
             Random, RandomDelay2, 2000, 3000
             Sleep, RandomDelay2
             ; go to altar 2
+             ;provisorio 
+             moveToBlueSquare()
         } Else{
             ;sino esta cerrada voy directo
             goToAltar()
