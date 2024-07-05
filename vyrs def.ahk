@@ -104,6 +104,7 @@ F1::
                 Sleep, breakSleep
                 Break
             }
+           ;nunca pasa por acá?
             Random, OutputVar , 500, 2200
             Sleep, OutputVar
         }
