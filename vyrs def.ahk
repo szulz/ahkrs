@@ -124,6 +124,7 @@ F1::
         } Else{
             ;sino esta cerrada voy directo
             goToAltar()
+            ; check if the door has closed and then move to blue sqr
             moveToBlueSquare()
         }
         ;go to altas if was closed previuosly
