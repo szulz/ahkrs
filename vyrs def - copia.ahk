@@ -4,9 +4,15 @@
     MouseMove, x, y 
     Random, RandomDelay1, 1000, 10000
     Sleep, RandomDelay1
-    Click
+    PixelSearch, test1X, test1Y, 0, 0, 1280, 1024, 0x8E1900, 0, Fast RGB
+    If (ErrorLevel = 0)
+    {
+        closedDoorCheck()
+     } Else{
+Click
     Random, RandomDelay, 4500, 6000
     Sleep, RandomDelay
+}
 }
 
 moveToBlueSquare(){
