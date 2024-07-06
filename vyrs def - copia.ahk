@@ -13,8 +13,8 @@ moveToBlueSquare(){
     PixelSearch, blueSquareX, blueSquareY, 0, 0, 1280, 1024, 0x000AFF, 0, Fast RGB
     If (ErrorLevel = 0)
     {
-        Random, posX , 7, 17,5
-        Random, posY , 7, 18,5
+        Random, posX , 4, 33
+        Random, posY , 6, 32
         new3X := blueSquareX + posX
         new3Y := blueSquareY + posY
         MouseMove, new3X, new3Y
@@ -22,6 +22,22 @@ moveToBlueSquare(){
         Click
         Sleep, 5000
     }
+}
+
+closedDoorCheck(){
+    PixelSearch, redDoorCheck2X, redDoorCheck2Y, 0, 0, 1280, 1024, 0x8E1900, 0, Fast RGB
+    If (ErrorLevel = 0)
+    {
+        Random, door1X, 2, 24
+        Random, door1Y, 2, 36
+        newFound1X := redDoorCheck2X + door1X
+        newFound1Y := redDoorCheck2Y + door1Y
+        MouseMove, newFound1X ,newFound1Y 
+        Click
+        Random, RandomDelay4, 1000, 2500
+        Sleep, RandomDelay4
+    }
+
 }
 
 dropCheck(){
@@ -89,6 +105,7 @@ F1::
             PixelSearch, FoundX, FoundY, 0, 0, 565, 423, 0x35E4A7, 0, Fast RGB
             If (ErrorLevel = 0)
             {
+                ;check for drops
                 PixelSearch, test1X, test1Y, 0, 0, 1280, 1024, 0xCD528F, 2, Fast RGB
                 If (ErrorLevel = 0)
                 {
@@ -99,27 +116,29 @@ F1::
                 {
                     dropCheck()
                 }
+                Random, OutputVar , 500, 3000
+                Sleep, OutputVar
             } Else{
+                ;si no hay prayer break
                 Random, breakSleep, 100, 15000
                 Sleep, breakSleep
                 Break
             }
-            Random, OutputVar , 500, 2200
-            Sleep, OutputVar
+
         }
         ;si la puerta está cerrada
-        PixelSearch, FoundX, FoundY, 0, 0, 1280, 1024, 0x8E1900, 0, Fast RGB
+        PixelSearch, redDoorCheckX, redDoorCheckY, 0, 0, 1280, 1024, 0x8E1900, 0, Fast RGB
         If (ErrorLevel = 0)
         {
             Random, doorX, 1, 17
             Random, doorY, 1, 38
-            newFoundX := FoundX + doorX
-            newFoundY := FoundY + doorY
+            newFoundX := redDoorCheckX + doorX
+            newFoundY := redDoorCheckY + doorY
             MouseMove, newFoundX ,newFoundY 
             Click
             Random, RandomDelay2, 2500, 4000
             Sleep, RandomDelay2
-            ; desde la puerta , muevo al altar dejando margen
+            ; voy al altar
             PixelSearch, FoundAltarX, FoundAltarY, 0, 0, 1280, 1024, 0x707433, 0, Fast RGB
             If (ErrorLevel = 0)
             {
@@ -133,12 +152,16 @@ F1::
                 Random, RandomDelay3, 2000, 3000
                 Sleep, RandomDelay3
             }
+            ;should chekc if the prayer is restored
+            ;check if the door is locked
+            closedDoorCheck()
             moveToBlueSquare()
             ;should check if prayer is restored, then check if the door is open, and then go back
 
         } Else{
             ;sino esta cerrada voy directo
             goToAltar()
+            closedDoorCheck()
             moveToBlueSquare()
         }
         ;go to altas if was closed previuosly
