@@ -7,13 +7,48 @@
     PixelSearch, test1X, test1Y, 0, 0, 1280, 1024, 0x8E1900, 0, Fast RGB
     If (ErrorLevel = 0)
     {
-        closedDoorCheck()
+        openDoor()
      } Else{
 Click
     Random, RandomDelay, 4500, 6000
     Sleep, RandomDelay
 }
 }
+
+openDoor(){
+        PixelSearch, redDoorCheckX, redDoorCheckY, 0, 0, 1280, 1024, 0x8E1900, 0, Fast RGB
+        If (ErrorLevel = 0)
+        {
+            Random, doorX, 1, 17
+            Random, doorY, 1, 38
+            newFoundX := redDoorCheckX + doorX
+            newFoundY := redDoorCheckY + doorY
+            MouseMove, newFoundX ,newFoundY 
+            Click
+            Random, RandomDelay2, 2500, 4000
+            Sleep, RandomDelay2
+            ; voy al altar
+            PixelSearch, FoundAltarX, FoundAltarY, 0, 0, 1280, 1024, 0x707433, 0, Fast RGB
+            If (ErrorLevel = 0)
+            {
+                Random, marginX, 5, 30
+                Random, marginY, 7, 108
+                altarMarginX := FoundAltarX + marginX
+                altarMarginY := FoundAltarY + marginY
+                MouseMove, altarMarginX, altarMarginY 
+                Sleep, 1000
+                Click
+                Random, RandomDelay3, 2000, 3000
+                Sleep, RandomDelay3
+            }
+            ;should chekc if the prayer is restored
+            ;check if the door is locked
+            closedDoorCheck()
+            moveToBlueSquare()
+            ;should check if prayer is restored, then check if the door is open, and then go back
+        } 
+}
+
 
 moveToBlueSquare(){
     PixelSearch, blueSquareX, blueSquareY, 0, 0, 1280, 1024, 0x000AFF, 0, Fast RGB
@@ -136,34 +171,7 @@ F1::
         PixelSearch, redDoorCheckX, redDoorCheckY, 0, 0, 1280, 1024, 0x8E1900, 0, Fast RGB
         If (ErrorLevel = 0)
         {
-            Random, doorX, 1, 17
-            Random, doorY, 1, 38
-            newFoundX := redDoorCheckX + doorX
-            newFoundY := redDoorCheckY + doorY
-            MouseMove, newFoundX ,newFoundY 
-            Click
-            Random, RandomDelay2, 2500, 4000
-            Sleep, RandomDelay2
-            ; voy al altar
-            PixelSearch, FoundAltarX, FoundAltarY, 0, 0, 1280, 1024, 0x707433, 0, Fast RGB
-            If (ErrorLevel = 0)
-            {
-                Random, marginX, 5, 30
-                Random, marginY, 7, 108
-                altarMarginX := FoundAltarX + marginX
-                altarMarginY := FoundAltarY + marginY
-                MouseMove, altarMarginX, altarMarginY 
-                Sleep, 1000
-                Click
-                Random, RandomDelay3, 2000, 3000
-                Sleep, RandomDelay3
-            }
-            ;should chekc if the prayer is restored
-            ;check if the door is locked
-            closedDoorCheck()
-            moveToBlueSquare()
-            ;should check if prayer is restored, then check if the door is open, and then go back
-
+           openDoor()
         } Else{
             ;sino esta cerrada voy directo
             goToAltar()
