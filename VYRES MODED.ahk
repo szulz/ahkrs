@@ -27,7 +27,8 @@ openDoor(){
         Click
         Random, RandomDelay2, 2500, 4000
         Sleep, RandomDelay2
-        ; voy al altar
+;finaliza el open door , debería separarlo por partes 
+        ; empieza otra parte gotoaltar
         PixelSearch, FoundAltarX, FoundAltarY, 0, 0, 1280, 1024, 0x707433, 0, Fast RGB
         If (ErrorLevel = 0)
         {
